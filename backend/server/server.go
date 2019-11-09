@@ -15,15 +15,6 @@ func Init() {
 func router() *gin.Engine {
 	r := gin.Default()
 	r.Use(cors.Default())
-	u := r.Group("/users")
-	{
-		ctrl := controller.UserController{}
-		u.GET("", ctrl.Index)
-		u.GET("/:id", ctrl.Show)
-		u.POST("", ctrl.Create)
-		u.PUT("/:id", ctrl.Update)
-		u.DELETE("/:id", ctrl.Delete)
-	}
 
 	api := r.Group("/api/v1")
 
