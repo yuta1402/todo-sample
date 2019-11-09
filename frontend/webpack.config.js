@@ -47,6 +47,11 @@ module.exports = {
   devServer: {
     contentBase: path.resolve(__dirname, "dist"),
     host: "0.0.0.0",
+    proxy: {
+      "/api/v1": {
+        target: "http://localhost:3000"
+      }
+    },
     disableHostCheck: true,
     watchContentBase: true,
     hot: false,
