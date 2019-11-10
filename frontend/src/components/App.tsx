@@ -1,6 +1,11 @@
 import React from "react";
 import Styles from "./App.scss";
-import TodoModel from "../models/todoModel"
+import TodoModel from "../models/todoModel";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import Checkbox from "@material-ui/core/Checkbox";
+import Button from "@material-ui/core/Button";
 
 interface AppProps {
 }
@@ -41,12 +46,16 @@ class App extends React.Component<AppProps, AppState> {
 
     render() {
         const todos = this.state.todos.map((t, index) => (
-            <div key={t.id}>{t.title}</div>
-        ))
+            <ListItem key={t.id}>
+                <Checkbox />
+                <ListItemText primary={t.title} />
+            </ListItem>
+        ));
+
         return (
-            <div>
+            <List>
                 {todos}
-            </div>
+            </List>
         )
     }
 }
