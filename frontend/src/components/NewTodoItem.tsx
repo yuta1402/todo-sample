@@ -5,6 +5,7 @@ import IconButton from "@material-ui/core/IconButton";
 import AddIcon from "@material-ui/icons/Add";
 
 interface NewTodoItemProps {
+    postTodo: (title: string) => void;
 }
 
 interface NewTodoItemState {
@@ -26,6 +27,14 @@ class NewTodoItem extends React.Component<NewTodoItemProps, NewTodoItemState> {
         });
     }
 
+    register() {
+        if (this.state.title === "") {
+            return;
+        }
+
+        this.props.postTodo(this.state.title);
+    }
+
     render() {
         return (
             <div>
@@ -35,7 +44,7 @@ class NewTodoItem extends React.Component<NewTodoItemProps, NewTodoItemState> {
                     value={this.state.title}
                     onChange={e => this.setTitle(e.target.value)}
                 />
-                <IconButton>
+                <IconButton onClick={() => this.register()}>
                     <AddIcon />
                 </IconButton>
             </div>

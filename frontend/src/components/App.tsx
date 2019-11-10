@@ -45,6 +45,41 @@ class App extends React.Component<AppProps, AppState> {
         });
     }
 
+    postTodo(title: string) {
+        if (title === "") {
+            return;
+        }
+
+        const newTodo = {
+            title: title,
+            completed: false,
+        };
+
+        fetch("/api/v1/todos", {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newTodo),
+        }).then(resp => {
+            if (resp.status !== 201) {
+                throw new Error(resp.statusText);
+            }
+            return resp.json();
+        }).catch(err => {
+            console.error("post todo error: ", err);
+        }).then(json => {
+            if (json === null) {
+                return;
+            }
+
+            this.setState({
+                todos: this.state.todos.concat(json),
+            })
+        });
+    }
+
     render() {
         const todos = this.state.todos.map((t, index) => (
             <ListItem key={t.id}>
@@ -55,7 +90,7 @@ class App extends React.Component<AppProps, AppState> {
 
         return (
             <div>
-                <NewTodoItem />
+                <NewTodoItem postTodo={(title: string) => this.postTodo(title)}/>
                 <List>
                     {todos}
                 </List>
