@@ -104,11 +104,34 @@ class App extends React.Component<AppProps, AppState> {
         });
     }
 
+    toggleTodo(id: number) {
+        return fetch("/api/v1/todos/" + id + "/toggle", {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+        }).then(resp => {
+            if (resp.status !== 200) {
+                throw new Error(resp.statusText)
+            }
+            return resp.json();
+        }).catch(err => {
+            console.error("toggle todo error: ", err)
+        }).then(json => {
+            this.setState({
+                todos: this.state.todos.map(todo => {
+                    return todo.id !== id ? todo : Object.assign({}, todo, { completed: !todo.completed });
+                }),
+            });
+        });
+    }
+
     render() {
         const todos = this.state.todos.map((t, index) => (
             <ListItem key={t.id}>
-                <Checkbox />
-                <ListItemText primary={t.title} />
+                <Checkbox checked={t.completed} onChange={() => this.toggleTodo(t.id)}/>
+                <ListItemText primary={t.completed ? <s>{t.title}</s> : t.title} />
                 <IconButton onClick={() => this.deleteTodo(t.id)}>
                     <DeleteIcon />
                 </IconButton>
