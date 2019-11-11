@@ -2,6 +2,7 @@ package server
 
 import (
 	"github.com/gin-contrib/cors"
+	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 	"github.com/yuta1402/todo-sample/backend/controller"
 )
@@ -9,12 +10,14 @@ import (
 // Init is initialize server
 func Init() {
 	r := router()
-	r.Run()
+	r.Run(":3000")
 }
 
 func router() *gin.Engine {
 	r := gin.Default()
 	r.Use(cors.Default())
+
+	r.Use(static.Serve("/", static.LocalFile("public", false)))
 
 	api := r.Group("/api/v1")
 

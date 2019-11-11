@@ -2,20 +2,6 @@
 
 
 [[projects]]
-  branch = "master"
-  digest = "1:6e4b5c787befa841d0a2f4b797fef2781d892da74b2f83fd1d67c809e0b65dce"
-  name = "github.com/PIETEP/mebius"
-  packages = [
-    "mebius-server/controller",
-    "mebius-server/db",
-    "mebius-server/entity",
-    "mebius-server/server",
-    "mebius-server/service",
-  ]
-  pruneopts = "UT"
-  revision = "0440e857810766854741673d80ef0587200856d6"
-
-[[projects]]
   digest = "1:cc93dd54278f6c0dd4b43588b3cf2c07b09b2a6dd4e2617edf81aa8946054c1e"
   name = "github.com/gin-contrib/cors"
   packages = ["."]
@@ -30,6 +16,14 @@
   pruneopts = "UT"
   revision = "54d8467d122d380a14768b6b4e5cd7ca4755938f"
   version = "v0.1.0"
+
+[[projects]]
+  branch = "master"
+  digest = "1:a0b7d2a32bd49db9648968d5f596e36355cfaac337b41573c3ae1583d41a1b67"
+  name = "github.com/gin-contrib/static"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "df30d4057ba1d17500f5abe4a34389b5757cdcea"
 
 [[projects]]
   digest = "1:d8bd2a337f6ff2188e08f72c614f2f3f0fd48e6a7b37a071b197e427d77d3a47"
@@ -152,12 +146,8 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
-    "github.com/PIETEP/mebius/mebius-server/controller",
-    "github.com/PIETEP/mebius/mebius-server/db",
-    "github.com/PIETEP/mebius/mebius-server/entity",
-    "github.com/PIETEP/mebius/mebius-server/server",
-    "github.com/PIETEP/mebius/mebius-server/service",
     "github.com/gin-contrib/cors",
+    "github.com/gin-contrib/static",
     "github.com/gin-gonic/gin",
     "github.com/jinzhu/gorm",
     "github.com/jinzhu/gorm/dialects/postgres",
