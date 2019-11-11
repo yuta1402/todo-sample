@@ -4,6 +4,9 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
+import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 import TodoModel from "../models/todoModel";
 import NewTodoItem from "./NewTodoItem"
@@ -85,11 +88,15 @@ class App extends React.Component<AppProps, AppState> {
             <ListItem key={t.id}>
                 <Checkbox />
                 <ListItemText primary={t.title} />
+                <IconButton>
+                    <DeleteIcon />
+                </IconButton>
             </ListItem>
         ));
 
         return (
-            <div>
+            // 本当は@material-uiのmakeStylesを使ったほうが良さそうだけど，とりあえずCSS Modulesを使用
+            <div className={Styles.root}>
                 <NewTodoItem postTodo={(title: string) => this.postTodo(title)}/>
                 <List>
                     {todos}
