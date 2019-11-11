@@ -75,3 +75,18 @@ func (tc TodoController) Delete(c *gin.Context) {
 		c.JSON(204, gin.H{"id #" + id: "deleted"})
 	}
 }
+
+// Toggle action: POST /todos/:id/toggle
+func (tc TodoController) Toggle(c *gin.Context) {
+	id := c.Params.ByName("id")
+	var s service.TodoService
+
+	t, err := s.ToggleByID(id)
+
+	if err != nil {
+		c.AbortWithStatus(400)
+		fmt.Println(err)
+	} else {
+		c.JSON(200, t)
+	}
+}

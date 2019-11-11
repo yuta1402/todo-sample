@@ -29,6 +29,7 @@ func router() *gin.Engine {
 		t.POST("", ctrl.Create)
 		t.PUT("/:id", ctrl.Update)
 		t.DELETE("/:id", ctrl.Delete)
+		t.POST("/:id/toggle", ctrl.Toggle)
 	}
 
 	return r

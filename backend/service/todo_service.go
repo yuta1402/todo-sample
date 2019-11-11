@@ -74,3 +74,17 @@ func (s TodoService) DeleteByID(id string) error {
 
 	return nil
 }
+
+func (s TodoService) ToggleByID(id string) (Todo, error) {
+	db := db.GetDB()
+	var t Todo
+
+	if err := db.Where("id = ?", id).First(&t).Error; err != nil {
+		return t, err
+	}
+
+	t.Completed = !t.Completed
+	db.Save(&t)
+
+	return t, nil
+}
