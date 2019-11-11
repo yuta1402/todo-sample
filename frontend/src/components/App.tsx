@@ -83,12 +83,33 @@ class App extends React.Component<AppProps, AppState> {
         });
     }
 
+    deleteTodo(id: number) {
+        return fetch("/api/v1/todos/" + id + "/", {
+            method: "DELETE",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            }
+        }).then(resp => {
+            if (resp.status !== 204) {
+                throw new Error(resp.statusText)
+            }
+            return resp.json();
+        }).catch(err => {
+            console.error("delete todo error: ", err);
+        }).then(json => {
+            this.setState({
+                todos: this.state.todos.filter(todo => todo.id !== id)
+            });
+        });
+    }
+
     render() {
         const todos = this.state.todos.map((t, index) => (
             <ListItem key={t.id}>
                 <Checkbox />
                 <ListItemText primary={t.title} />
-                <IconButton>
+                <IconButton onClick={() => this.deleteTodo(t.id)}>
                     <DeleteIcon />
                 </IconButton>
             </ListItem>
